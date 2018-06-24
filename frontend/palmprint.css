@@ -42,7 +42,7 @@ body{
 }
 
 .hand-list li {
-    border-bottom: 1px solid gainsboro;
+    border-bottom: 1px solid rgb(157, 205, 159);
     list-style:none;
     margin: 0;
     height: 40px;
@@ -50,7 +50,7 @@ body{
 }
 
 .hand-addbtn {
-    background-color: rgba(17, 160, 140, 0.67);
+    background-color: #ACE1AF;
     padding: 10px;
     margin-left: 10px;
     border-radius: 5px;
