@@ -21,9 +21,7 @@ window.onload = function(){
     },false);
 
     var ver = $('#verification-box');
-    ver.addEventListener('click',function(){
-        
-    },false);
+    ver.addEventListener('click', camera, false);
 
     while(name==""||name=="null"){
         wrName();
