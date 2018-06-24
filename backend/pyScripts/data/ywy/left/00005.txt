@@ -1,0 +1,10 @@
+Total BFLOPS 34.878 
+
+ seen 32 
+Enter Image Path:  Used AVX 
+pal/00005.jpg: Predicted in 4.883756 seconds.
+gap1: 88%	(left_x:  133   top_y: 1055   width:  186   height:  228)
+gap0: 90%	(left_x:  349   top_y:  670   width:  183   height:  245)
+gap0: 91%	(left_x:  561   top_y:  670   width:  182   height:  231)
+gap0: 72%	(left_x:  768   top_y:  720   width:  183   height:  233)
+Enter Image Path: 
