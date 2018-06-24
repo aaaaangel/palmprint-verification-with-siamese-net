@@ -1,0 +1,24 @@
+body{
+    top: 0;
+    left: 0;
+    padding: 20px;
+    margin: 0;
+}
+
+#palmprint-box, #verification-box{
+    height: 300px;
+    width: 100%;
+    text-align: center;
+    line-height: 300px;
+}
+
+#palmprint-box {
+    background-color: cadetblue;
+    color: white;
+}
+
+#verification-box {
+    background-color: white;
+    color: cadetblue;
+}
+
