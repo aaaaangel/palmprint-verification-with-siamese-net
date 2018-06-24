@@ -3,10 +3,11 @@ import math
 import numpy as np
 import os
 import sys
+import json
 
 
-def tailor(label,direction, index):
-    image_dir_path = './data/'+label+'/'+direction
+def tailor(label,direction, index, syspath):
+    image_dir_path = syspath +'backend/pyScripts/data/'+label+'/'+direction
     img_path = image_dir_path+'/'+str(index).zfill(5)+'.jpg'
     txt_path = image_dir_path+'/'+str(index).zfill(5)+'.txt'
     out_name = image_dir_path+'/'+str(index).zfill(5)+'sq'+'.jpg'
@@ -101,11 +102,19 @@ def main():
     label = sys.argv[1]
     direction = sys.argv[2]
     index = sys.argv[3]
-    if(tailor(label, direction, index)):
+    syspath = sys.argv[4]
+    if(tailor(label, direction, index, syspath)):
         return 0
     else:
         return -1
 
 
 if __name__ == '__main__':
-    main()
+    if(main()==0):
+        jsonob = {'result': 0}
+        strjson = json.dumps(jsonob, sort_keys=True)
+        print(strjson)
+    else:
+        jsonob = {'result': 1}
+        strjson = json.dumps(jsonob, sort_keys=True)
+        print(strjson)

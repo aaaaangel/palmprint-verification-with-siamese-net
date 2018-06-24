@@ -81,7 +81,7 @@ class SiameseFaceNet(object):
         self.threshold = self.config['threshold']
         self.vgg16_include_top = self.config['vgg16_include_top']
 
-        self.vgg16_model = self.create_vgg16_model()
+        self.vgg16_model = self.create_vgg16_model(model_dir_path)
         self.model = self.create_network(input_shape=self.input_shape)
         weight_file_path = SiameseFaceNet.get_weight_path(model_dir_path)
         self.model.load_weights(weight_file_path)
@@ -160,10 +160,10 @@ class SiameseFaceNet(object):
     def get_architecture_path(model_dir_path):
         return model_dir_path + os.path.sep + SiameseFaceNet.model_name + '-architecture.h5'
 
-    def create_vgg16_model(self):
+    def create_vgg16_model(self, model_path):
         # vgg16_model = VGG16(include_top=self.vgg16_include_top, weights='imagenet')
         # vgg16_model.compile(optimizer=SGD(), loss='categorical_crossentropy', metrics=['accuracy'])
-        vgg16_model = load_model('./models/my_model.h5')
+        vgg16_model = load_model(model_path+'/my_model.h5')
         return vgg16_model
 
     def fit(self, database, model_dir_path, epochs=None, batch_size=None, threshold=None, vgg16_include_top=None):
