@@ -1,10 +1,8 @@
-var $ = function(sel) {
-    return document.querySelector(sel);
-};
 var $All = function(sel) {
     return document.querySelectorAll(sel);
 };
 
+var ip = "http://192.168.43.222:8080/";
 var name = sessionStorage.getItem('name');
 function wrName(){
     var temp = "";
@@ -15,13 +13,15 @@ function wrName(){
 }
 
 window.onload = function(){
-    var palmprint = $('#palmprint-box');
+    var palmprint = document.getElementById('palmprint-box');
     palmprint.addEventListener('click', function(){
         window.location.href="palmprint.html";
     },false);
 
-    var ver = $('#verification-box');
-    ver.addEventListener('click', camera, false);
+    var ver = this.document.getElementById('verification-box');
+    ver.addEventListener('click', function(){
+        window.location.href="camera.html";
+    },false);
 
     while(name==""||name=="null"){
         wrName();

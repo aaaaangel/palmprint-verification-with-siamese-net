@@ -14,6 +14,7 @@
 <div class="btn" id="save">Save</div>
 <div id="my_result"></div>
 
+<script src="js/jquery.min.js"></script>
 <script language="JavaScript">
     Webcam.attach( '#my_camera' );
     Webcam.set({
@@ -23,22 +24,46 @@
         crop_height: 240
     });
 
+    var data;
+    var name = sessionStorage.getItem('name');
+    var ip = "http://192.168.43.222:8080/";
+
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
+            data = data_uri;
+            // console.log(data);
             document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-        } );
-        Webcam.snap( function(data_uri) {
-            // snap complete, image data is in 'data_uri'
-            console.log("upload");
-            Webcam.upload( data_uri, 'myscript.php', function(code, text) {
-                // Upload complete!
-                // 'code' will be the HTTP response code from the server, e.g. 200
-                // 'text' will be the raw response content
-
-            } );
-
+            // console.log(data);
         } );
     }
+
+    document.getElementById("save").addEventListener("click",function () { 
+        // console.log(data);
+        var path = "C:\Users\Administrator\Desktop\ROI\palmprint-verification-with-siamese-net\backend\pyScripts\data\TEMP\temp\000001.jpg";
+        // dowmloadURI(data, path)
+        ajaxTemp(data);
+    },false);
+
+    function dowmloadURI(uri, name) {  
+        var link = document.createElement("a");  
+        link.download = name;  
+        link.href = uri;  
+        link.click();  
+    }
+
+    function ajaxTemp(pic){
+        $.ajax({
+            type: "get",
+            async: false,
+            url: ip,
+            data : {"type":5,"name":name, "url": pic},
+            success:function(response){
+                // 返回结果， 是否为这个人
+                alert("")
+            }
+    });
+}
+
 </script>
 
 <!--<a href="javascript:void(take_snapshot())">Take Snapshot</a>-->

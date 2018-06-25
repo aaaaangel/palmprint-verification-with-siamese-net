@@ -25,6 +25,7 @@ var url = require('url');
 var createServer = http.createServer(onRequest);
 // var palmlist = require("./palmlist");
 var fs = require("fs");
+var req = require("request");
   
 function onRequest(request, response) {  
     response.writeHead(200, {  
@@ -35,6 +36,8 @@ function onRequest(request, response) {
     // console.log(request);
     
     var params = url.parse(request.url, true).query;
+
+    // 返回当前拥有的imgs
     if(params.type == 1){
         // console.log(params);
         console.log(params.name);
@@ -47,6 +50,7 @@ function onRequest(request, response) {
         response.write(str);  
         response.end();  
     }
+    // 删除对应Img
     if(params.type == 2){
         var path = __dirname + "/pyScripts/data/" + params.name + "/" + params.hand + "/";
         // 删除文件
@@ -71,11 +75,58 @@ function onRequest(request, response) {
 
         response.end();
     }
+
+    // 存储图片并验证
+    if(params.type == 5){
+        var path = __dirname + "/pyScripts/data/TEMP/temp/00001.jpg";
+        console.log(params.url);
+
+        // var blob = dataURItoBlob(params.url);
+
+        var base64Data = params.url.replace(/^data:image\/\w+;base64,/, "");
+        var dataBuffer = new Buffer(base64Data, 'base64');
+        fs.writeFile(path,dataBuffer,function(err){  //path为本地路径例如public/logo.png
+            if(err){console.log('保存出错！')}else{
+                console.log('保存成功!')
+            }
+        });
+        // console.log(path);
+        // req(params.url).pipe(fs.createWriteStream(path));
+        // test = "http://s0.hao123img.com/res/img/logo/logonew.png";
+        // req(url).pipe(fs.createWriteStream(path));
+
+        // http.get("http://"+params.url,function(req,res){  //path为网络图片地址
+        //     var imgData = '';
+        //     req.setEncoding('binary');
+        //     req.on('data',function(chunk){
+        //       imgData += chunk
+        //     })
+        //     req.on('end',function(){
+        //       fs.writeFile(path,imgData,'binary',function(err){  //path为本地路径例如public/logo.png
+        //         if(err){console.log('保存出错！')}else{
+        //           console.log('保存成功!')
+        //         }
+        //       })
+        //     })
+        //   })
+        response.end();
+    }
     
 }  
 
-createServer.listen(8080); 
-console.log('Server running  at http://127.0.0.1:8080/');
+function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}
+
+createServer.listen(8080,"192.168.43.222"); 
+console.log('Server running  at http://192.168.43.222:8080/');
 
 function getPic(name, left){
     if(left){

@@ -6,6 +6,7 @@ var name = sessionStorage.getItem('name');
 var left;
 var right;
 var timerId;
+var ip = "http://192.168.43.222:8080/";
 
 function update(){
     document.getElementById('name').innerHTML = name;
@@ -111,7 +112,7 @@ function ajax(){
     $.ajax({
         type: "get",
         async: false,
-        url: 'http://127.0.0.1:8080/',
+        url: ip,
         data: {"type":1 , "name": name},
         success:function(response){
             // alert(response);
@@ -127,10 +128,33 @@ function ajaxDelete(del, hand){
     $.ajax({
         type: "get",
         async: false,
-        url: 'http://127.0.0.1:8080/',
+        url: ip,
         data : {"type":2,"name":name, "hand": hand, "filename": del},
         success:function(response){
 
         }
     });
 };
+
+function ajaxShow(del, hand){
+    $.ajax({
+        type: "get",
+        async: false,
+        url: ip,
+        data : {"type":3,"name":name, "hand": hand, "filename": del},
+        success:function(response){
+
+        }
+    });
+}
+
+function ajaxAdd(del, hand){
+    $.ajax({
+        type: "get",
+        async: false,
+        url: ip,
+        data : {"type":4,"name":name, "hand": hand, "filename": del},
+        success:function(response){
+        }
+    });
+}
