@@ -17,7 +17,7 @@ def main():
     image_dir_path = syspath + 'backend/pyScripts/data/' + label + '/left'
     imgs = os.listdir(image_dir_path)
     for img in imgs:
-        if (not img.endswith('.jpg')):
+        if (not img.endswith('sq.jpg')):
             continue
         database[label].append(fnet.img_to_encoding(image_dir_path+'/'+img))
 
