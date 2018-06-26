@@ -8,37 +8,89 @@
 </head>
 <body>
 
-<div id="my_camera" style="width:320px; height:240px;"></div>
+<div class="btn" id="return">Return</div>
+<div id="my_camera"></div>
 <div class="btn" id="take" onclick="take_snapshot()">Take Snapshot</div>
 
 <div class="btn" id="save">Save</div>
 <div id="my_result"></div>
 
+<script src="js/jquery.min.js"></script>
 <script language="JavaScript">
-    Webcam.attach( '#my_camera' );
     Webcam.set({
-        width: 320,
-        height: 240,
-        crop_width: 240,
-        crop_height: 240
+        width: 240,
+        height: 400,
+        // crop_width: 240,
+        // crop_height: 240
     });
+    Webcam.attach( '#my_camera' );
+
+
+    var data;
+    var isAdd = sessionStorage.getItem('add');
+    var name = sessionStorage.getItem('name');
+    var maxId = sessionStorage.getItem('max');
+    // var ip = "http://192.168.43.222:8080/";
+    var ip = "https://192.168.43.55:8080/";
 
     function take_snapshot() {
         Webcam.snap( function(data_uri) {
+            data = data_uri;
+            // console.log(data);
             document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
-        } );
-        Webcam.snap( function(data_uri) {
-            // snap complete, image data is in 'data_uri'
-            console.log("upload");
-            Webcam.upload( data_uri, 'myscript.php', function(code, text) {
-                // Upload complete!
-                // 'code' will be the HTTP response code from the server, e.g. 200
-                // 'text' will be the raw response content
-
-            } );
-
+            // console.log(data);
         } );
     }
+
+    document.getElementById("save").addEventListener("click",function () {
+        alert('Start processing');
+        ajaxTemp(data);
+    },false);
+
+    document.getElementById("return").addEventListener("click",function () {
+        window.location.href="index.html";
+    },false);
+
+    function ajaxTemp(pic){
+        if(isAdd=='not'){
+            $.ajax({
+                type: "get",
+                async: false,
+                url: ip,
+                data : {"type":5,"name":name, "url": pic},
+                success:function(response){
+                    // 返回结果， 是否为这个人
+                    if(response == "success"){
+                        alert("You are "+name);
+                        window.location.href="index.html";
+                    }
+                    else{
+                        alert(response);
+                    }
+                }
+            });
+        }
+        else{
+            // 添加掌纹
+            $.ajax({
+                type: "get",
+                async: false,
+                url: ip,
+                data : {"type":4,"name":name,"url": pic, "hand": isAdd, 'max': maxId},
+                success:function(response){
+                    // 是否添加成功
+                    if(response == "success"){
+                        alert("Success!");
+                        window.location.href="palmprint.html";
+                    }
+                    else{
+                        alert(response);
+                    }
+                }
+            });
+        }
+    }
+
 </script>
 
 <!--<a href="javascript:void(take_snapshot())">Take Snapshot</a>-->

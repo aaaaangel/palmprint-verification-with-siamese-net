@@ -28,7 +28,7 @@ def main():
             continue
         database[label].append(fnet.img_to_encoding(image_dir_path + '/' + img))
 
-    dist, isvalid = fnet.verify(syspath + 'backend/pyScripts/data/TEMP/temp/00001sq.jpg', label, database, 0.5)
+    dist, isvalid = fnet.verify(syspath + 'backend/pyScripts/data/TEMP/temp/00001sq.jpg', label, database, 0.4)
 
     if(isvalid==True):
         return 0

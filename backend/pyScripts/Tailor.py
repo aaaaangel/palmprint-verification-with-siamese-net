@@ -11,7 +11,7 @@ def tailor(label,direction, index, syspath):
     img_path = image_dir_path+'/'+str(index).zfill(5)+'.jpg'
     txt_path = image_dir_path+'/'+str(index).zfill(5)+'.txt'
     out_name = image_dir_path+'/'+str(index).zfill(5)+'sq'+'.jpg'
-    len_thresh = 10000
+    len_thresh = 10
     img = cv2.imread(img_path)
 
     small = []
@@ -20,7 +20,7 @@ def tailor(label,direction, index, syspath):
         cnt = 0
         for line in f:
             cnt += 1
-            if cnt <= 5:
+            if len(line)==0 or line[0] != 'g':
                 continue
 
             str0 = line.split("(")[0].split(":")[0]
@@ -36,8 +36,6 @@ def tailor(label,direction, index, syspath):
                     big.append(temp[1].split(")")[0].split())
                 else:
                     big.append(small[len(small)-1])
-            else:
-                break
 
     if len(small) != 3:
         return False

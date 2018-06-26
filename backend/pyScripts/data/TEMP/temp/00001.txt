@@ -1,10 +1,9 @@
 Total BFLOPS 34.878 
 
  seen 32 
-Enter Image Path:  Used AVX 
-pal/00001.jpg: Predicted in 4.768162 seconds.
-gap1: 85%	(left_x:  302   top_y: 1097   width:  192   height:  243)
-gap0: 85%	(left_x:  521   top_y:  772   width:  195   height:  262)
-gap0: 84%	(left_x:  716   top_y:  744   width:  186   height:  270)
-gap0: 78%	(left_x:  864   top_y:  863   width:  197   height:  263)
+Enter Image Path: /Users/angel/Desktop/computer_vision/finalproject/palmprint-verification-with-siamese-net/backend/pyScripts/data/TEMP/temp/00001.jpg: Predicted in 4.176992 seconds.
+gap0: 84%	(left_x:   60   top_y:  278   width:   86   height:  123)
+gap0: 86%	(left_x:  137   top_y:  189   width:   83   height:  128)
+gap0: 89%	(left_x:  264   top_y:  153   width:   86   height:  126)
+gap1: 31%	(left_x:  443   top_y:  315   width:   88   height:  128)
 Enter Image Path: 

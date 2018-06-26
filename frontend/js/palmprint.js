@@ -6,6 +6,8 @@ var name = sessionStorage.getItem('name');
 var left;
 var right;
 var timerId;
+// var ip = "http://192.168.43.222:8080/";
+var ip = "https://192.168.43.55:8080/";
 
 function update(){
     document.getElementById('name').innerHTML = name;
@@ -36,19 +38,13 @@ function upList(data, hand){
 
             function touchFn(ev){
                 switch (ev.type){
-                    case "touchstart" : 
+                    case "touchstart" :
                         oldTouch = ev.changedTouches[0];
                         break;
                     case "touchend" :
                         var newTouch = ev.changedTouches[0];
                         // 右滑>100删除
                         if(newTouch.clientX - oldTouch.clientX > 150){
-                            // console.log("delete"+item);
-                            // if(hand=="left"){
-                            //     if(parseInt(item)==left.max){
-
-                            //     }
-                            // }
                             if(confirm('确定删除'+item+'?')){
                                 ajaxDelete(item, hand);
                                 update();
@@ -61,7 +57,7 @@ function upList(data, hand){
 
             ol.appendChild(li);
         });
-        
+
         dom.appendChild(ol);
     }
 }
@@ -70,6 +66,18 @@ window.onload = function(){
     var palmprint = document.getElementById('return');
     palmprint.addEventListener('click', function(){
         window.location.href="index.html";
+    },false);
+
+    document.getElementById('add-left-btn').addEventListener('click', function(){
+        sessionStorage.setItem('add','left');
+        sessionStorage.setItem('max', left.max);
+        window.location.href="camera2.html";
+    },false);
+
+    document.getElementById('add-right-btn').addEventListener('click', function(){
+        sessionStorage.setItem('add','right');
+        sessionStorage.setItem('max', right.max);
+        window.location.href="camera2.html";
     },false);
 
     var change_name = document.getElementById('name');
@@ -90,7 +98,7 @@ window.onload = function(){
                         name = sessionStorage.getItem('name');
                     }
                     sessionStorage.setItem('name',name);
-                    update();  
+                    update();
                 }, 500)
                 break;
             case "touchmove" :
@@ -109,9 +117,9 @@ window.onload = function(){
 
 function ajax(){
     $.ajax({
-        type: "get",
+        type: "post",
         async: false,
-        url: 'http://127.0.0.1:8080/',
+        url: ip,
         data: {"type":1 , "name": name},
         success:function(response){
             // alert(response);
@@ -125,12 +133,24 @@ function ajax(){
 
 function ajaxDelete(del, hand){
     $.ajax({
-        type: "get",
+        type: "post",
         async: false,
-        url: 'http://127.0.0.1:8080/',
+        url: ip,
         data : {"type":2,"name":name, "hand": hand, "filename": del},
         success:function(response){
 
         }
     });
 };
+
+function ajaxShow(del, hand){
+    $.ajax({
+        type: "post",
+        async: false,
+        url: ip,
+        data : {"type":3,"name":name, "hand": hand, "filename": del},
+        success:function(response){
+
+        }
+    });
+}
