@@ -1,0 +1,9 @@
+Total BFLOPS 34.878 
+
+ seen 32 
+Enter Image Path: /Users/angel/Desktop/computer_vision/finalproject/palmprint-verification-with-siamese-net/backend/pyScripts/data/zaq/left/00002.jpg: Predicted in 4.158771 seconds.
+gap1: 82%	(left_x:   59   top_y:  211   width:   81   height:  113)
+gap0: 89%	(left_x:  221   top_y:   57   width:   84   height:  111)
+gap0: 91%	(left_x:  330   top_y:   62   width:   85   height:  118)
+gap0: 88%	(left_x:  410   top_y:  160   width:   88   height:  118)
+Enter Image Path: 

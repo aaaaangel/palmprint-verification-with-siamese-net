@@ -300,7 +300,7 @@ function onRequest(request, response) {
 createServer.listen(8080,"192.168.43.55");
 
 // console.log('Server running  at http://192.168.43.222:8080/');
-console.log('Server running  at http://192.168.43.55:8080/');
+console.log('Server running  at https://192.168.43.55:8080/');
 
 function getPic(name, left){
     if(left){
